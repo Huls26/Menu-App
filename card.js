@@ -1,3 +1,5 @@
+import {displayMenuItem, htmlData} from "./app.js"
+
 export const menu = [
   {
     id: 1,
@@ -76,25 +78,26 @@ export const menu = [
 const sectionCenter = document.querySelector(".section-center");
 
 window.addEventListener("DOMContentLoaded", function () {
-  let displayMenu = menu.map(function (item) {
-    // console.log(item);
-
-    return `<article class="menu-item">
-          <img src=${item.img} alt=${item.title} class="photo" />
-          <div class="item-info">
-            <header class="name-price">
-              <h4>${item.title}</h4>
-              <h4 class="price">$${item.price}</h4>
-            </header>
-            <p class="item-text">
-              ${item.desc}
-            </p>
-          </div>
-        </article>`;
-  });
-  
-  displayMenu = displayMenu.join("");
-  // console.log(displayMenu);
+  let displayMenu = displayMenuItem(menu);
 
   sectionCenter.innerHTML = displayMenu;
 });
+
+// get all catergory in menu
+export function filterBtn(array) {
+  return array.reduce((container, element) => {
+    return filtersItems(container, element)
+  }, ["all"]).map(element => {
+    return `<button class="category-btn">${element.toUpperCase()}</button>`
+  }).join("")
+}
+
+// check if the element is already in the container
+export function filtersItems(array, element) {
+  let category = element.category
+      if (!array.includes(category)) {
+          array.push(category)
+      }
+
+  return array
+}
