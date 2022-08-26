@@ -32,6 +32,7 @@ let main = function() {
     });
 }()
 
+// remove style
 function removeStyle(elements) {
     for (let element of elements) {
         element.style.backgroundColor = "white";
